@@ -23,10 +23,14 @@
 
 		 <div class="form-group">
 			<label for="grupo">Grupo:</label>
-			<select class="form-control">
+			<select class="form-control" name="cargo_id">
 				@foreach($cargos as $cargo)
-					<option value="{{ cargo->id }}" 
-					{{ $usuario->cargo_id == $cargo->id? 'selected="selected"' : '' }} >
+					@if ($usuario->exists)
+						<option value="{{ $cargo->id }}" {{ $usuario->cargo->id == $cargo->id ? 'selected="selected"' : '' }} >
+					@else
+						<option value="{{ $cargo->id }}">
+					@endif
+
 					{{ $cargo->nombre }}
 					</option>
 				@endforeach

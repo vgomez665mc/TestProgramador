@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use \App\User;
 use \App\Cargo;
 use  \App\Http\Requests\UserRequest;
+use App\Http\Requests\CreateUsuarioRequest;
+use App\Http\Requests\UpdateUsuarioRequest;
 class UserController extends Controller
 {
     /**
@@ -30,7 +32,7 @@ class UserController extends Controller
         $usuario = new User;
         $cargos=Cargo::all();
 
-       return view('users.create')->with(['usuario' => $usuario],['cargos' => $cargos]);
+       return view('users.create')->with(['usuario' => $usuario,'cargos' => $cargos]);
 
 
     }
@@ -42,13 +44,13 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateUsuarioRequest $request)
     {
         $usuario = new User();
-
-       $usuario->fill(
-         $request->only('nombre', 'correo', 'cedula')
+        $usuario->fill(
+        $request->only('nombre', 'correo', 'cedula', 'cargo_id')
        );
+
 
        //$usuario->usuario_id = $request->user()->id;
 
@@ -65,6 +67,7 @@ class UserController extends Controller
     public function show($id)
     {
         $usuario=User::find($id);
+
         return view('users.show',compact('usuario'));
     }
 
@@ -94,8 +97,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUsuarioRequest $request,$id)
     {
+        $usuario = User::find($id);
+        $usuario->update(
+        $request->only('nombre', 'correo', 'cedula', 'cargo_id')
+       );
+
         return redirect()->route('users.index');
 
     }

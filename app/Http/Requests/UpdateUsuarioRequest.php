@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class UpdateUsuarioRequest extends CreateUsuarioRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,10 +23,10 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'nombre' => 'required|max:100',
-            'correo' => 'required|emai|unique:users',
-            'cedula' => 'numeric|required|unique|digits_between:6,6',
-        ];
+        $this->reglas['cedula'] = "required|unique:users,cedula,{$this->users->id},id";
+        $this->reglas['email']  = "required|unique:users,email,{$this->users->id},id";
+        return $this->reglas;
+
+
     }
 }
