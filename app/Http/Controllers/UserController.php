@@ -97,10 +97,8 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUsuarioRequest $request,$id)
-    {
-        $usuario = User::find($id);
-        $usuario->update(
+    public function update(UpdateUsuarioRequest $request, User $user)    {
+       $user->update(
         $request->only('nombre', 'correo', 'cedula', 'cargo_id')
        );
 

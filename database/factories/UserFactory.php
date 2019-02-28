@@ -17,7 +17,7 @@ $factory->define(App\User::class, function (Faker $faker) {
     return [
         'nombre' => $faker->name,
         'correo' => $faker->safeEmail,
-        'cedula' => $faker->unique()->numberBetween($min = 1, $max = 100), // secret}
+        'cedula' => $faker->unique()->numberBetween($min = 100000, $max = 999999), // secret}
         'cargo_id' => App\Cargo::all()->random()->id,
 
     ];

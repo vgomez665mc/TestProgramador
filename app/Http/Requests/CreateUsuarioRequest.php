@@ -7,9 +7,10 @@ use Illuminate\Foundation\Http\FormRequest;
 class CreateUsuarioRequest extends FormRequest
 {
     protected $reglas = [
-        'nombre' => 'required|alpha|max:100',
-        'correo' => 'required|emai|unique:users',
-        'cedula' => 'integer|required|unique:users|Min:6|Max:6',
+        'nombre' => 'required|regex:/^[\pL\s]+$/u|max:100',
+        'correo' => 'required|email|unique:users',
+        'cedula' => 'required|integer|unique:users|digits:6',
+
     ];
     /**
      * Determine if the user is authorized to make this request.
