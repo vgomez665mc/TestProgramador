@@ -7,10 +7,8 @@
 		<a href="{{route('users.index')}}" class="btn btn-default pull-right">Listado</a>
 	</h2>
 		@include('users.fragment.error')
+	    @include('users.fragment.form', ['usuario' => $usuario,'cargos'=>$cargos])
 
-	{!! Form::model($usuarios,['users.update',$usuarios->id,'method'=>'PUT'])!!}
-	@include('users.fragment.form')
-	{!!Form::close()!!}
 </div>
 
 
@@ -21,3 +19,5 @@
 
 
 @endsection
+
+

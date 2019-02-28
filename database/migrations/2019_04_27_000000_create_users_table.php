@@ -18,6 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('nombre');
             $table->string('correo');
             $table->string('cedula')->unique();
+             $table->integer('cargo_id')->unsigned();
+            $table->foreign('cargo_id')->references('id')->on('cargos');
             $table->timestamps();
         });
     }

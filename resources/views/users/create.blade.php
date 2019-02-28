@@ -7,10 +7,7 @@
 		<a href="{{route('users.index')}}" class="btn btn-default pull-right">Listado</a>
 	</h2>
 		@include('users.fragment.error')
-
-	{!! Form::open(['route'=>'users.store'])!!}
-	@include('users.fragment.form')
-	{!!Form::close()!!}
+	    @include('users.fragment.form', ['usuario' => $usuario])
 </div>
 
 

@@ -15,14 +15,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nombre', 'correo', 'cedula',
+        'nombre', 'correo', 'cedula','cargo_id',
     ];
 
 
-
-    public function cargo(){
-        return $this->hasOne("App\Cargo");
+public function cargo(){
+        return $this->belongsTo("App\Cargo");
     } 
-
-
 }

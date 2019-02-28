@@ -15,9 +15,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $usuarios= User::orderBy('id','Desc')->paginate(10);
-        $cargos=Cargo::all();
-        return view('users.index',compact('usuarios','cargos'));
+        $usuarios=  User::with('cargo')->orderBy('id','Desc')->paginate(10);
+       // return view('users.index',compact('usuarios','cargos'));
+        return view("users.index")->with(['usuarios'=>$usuarios]);
     }
 
     /**
@@ -27,7 +27,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $usuario = new User;
+        $cargos=Cargo::all();
+
+       return view('users.create')->with(['usuario' => $usuario],['cargos' => $cargos]);
+
 
     }
 
@@ -40,7 +44,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        return 'Usuario guardado';
+        $usuario = new User();
+
+       $usuario->fill(
+         $request->only('nombre', 'correo', 'cedula')
+       );
+
+       //$usuario->usuario_id = $request->user()->id;
+
+       $usuario->save();
+       return redirect()->route('users.index');
     }
 
     /**
@@ -51,8 +64,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $usuarios=User::find($id);
-        return view('users.show',compact('usuarios'));
+        $usuario=User::find($id);
+        return view('users.show',compact('usuario'));
     }
 
     /**
@@ -63,8 +76,13 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $usuarios=User::find($id);
-        return view('users.edit',compact('usuarios'));
+        $usuario=User::find($id);
+        $cargos=Cargo::all();
+     //   dd($cargos);
+
+        //return view('users.edit',compact('usuario'));
+        return view('users.edit')->with(['usuario' => $usuario,'cargos' => $cargos]);
+
     }
 
 
@@ -78,7 +96,8 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return 'Usuario actualizado'. $id;
+        return redirect()->route('users.index');
+
     }
 
     /**
@@ -89,8 +108,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $usuarios=User::find($id);
-        $usuarios->delete();
+        $usuario=User::find($id);
+        $usuario->delete();
         return back()->with('info','el usuario se elimino');
     }
 }

@@ -17,7 +17,7 @@
 				<th>Correo</th>
 				<th>Cedula</th>
 				<th>Cargo</th>
-				<th colspan="4"></th>
+				<th colspan="3" class="text-center">Operaciones</th>
 
 			</thead>
 			<tbody>
@@ -27,8 +27,10 @@
 						<td>{{$user->nombre}}</td>
 						<td>{{$user->correo}}</td>
 						<td>{{$user->cedula}}</td>
-						<td><a href="{{route('users.show',$user->id)}}"class="btn btn-link"></a>ver</td>
-						<td><a href="{{route('users.edit',$user->id)}}"class="btn btn-link"></a>editar</td>
+						<td>{{$user->cargo->nombre}}</td>
+
+						<td><a href="{{route('users.show',$user->id)}}"class="btn btn-link">ver</a></td>
+						<td><a href="{{route('users.edit',$user->id)}}"class="btn btn-link">editar</a></td>
 						<td>
 							<form action="{{route('users.destroy',$user->id)}}" method='POST'>
 								{{csrf_field()}}
@@ -44,8 +46,8 @@
 					@endforeach
 			</tbody>
 		</table>
-		<?php echo $usuarios->render(); ?>
-	</div>
+			{{ $usuarios->render() }}
+		</div>
 	
 	<br>
 	<div class="col-sm-4">
