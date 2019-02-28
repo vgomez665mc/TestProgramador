@@ -29,13 +29,13 @@
 						<td>{{$user->cedula}}</td>
 						<td>{{$user->cargo->nombre}}</td>
 
-						<td><a href="{{route('users.show',$user->id)}}"class="btn btn-link">ver</a></td>
-						<td><a href="{{route('users.edit',$user->id)}}"class="btn btn-link">editar</a></td>
+						<td><a href="{{route('users.show',$user->id)}}"class="btn btn-default"><i class="fas fa-eye"></i></a></td>
+						<td><a href="{{route('users.edit',$user->id)}}"class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a></td>
 						<td>
 							<form action="{{route('users.destroy',$user->id)}}" method='POST'>
 								{{csrf_field()}}
 								<input type="hidden" name="_method" value="DELETE">
-								<button class="btn btn-link">borrar</button>
+								<button class="btn btn-danger"><i class="far fa-trash-alt"></i> </button>
 								
 							</form>
 
